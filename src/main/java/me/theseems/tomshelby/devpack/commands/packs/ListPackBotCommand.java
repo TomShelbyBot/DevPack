@@ -13,19 +13,17 @@ public class ListPackBotCommand extends SimpleBotCommand implements DevPermissib
   public ListPackBotCommand() {
     super(
         SimpleCommandMeta.onLabel("listpacks")
-            .description("Показать все пакеты, установленные на боте"));
+            .description("Показать список всех установленных паков"));
   }
 
   public static String getPackageEntry(BotPackageManager manager, BotPackage pack) {
     StringBuilder builder = new StringBuilder();
     boolean isEnabled = manager.isEnabled(pack.getInfo().getName());
     builder
-        .append("*")
-        .append(pack.getInfo().getName())
-        .append("*")
+        .append("*").append(pack.getInfo().getName()).append("*")
         .append('\n')
         .append("|  Статус: ")
-        .append(isEnabled ? "_✔️ (включен)_" : "_❌ (выключен)_")
+        .append("_").append(isEnabled ? "☑️ (включен)" : "✖️ (выключен)").append("_")
         .append('\n')
         .append("|  Автор: ")
         .append(pack.getInfo().getAuthor())

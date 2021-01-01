@@ -16,6 +16,6 @@ public class SaveAllBotCommand implements DevPermissibleBotCommand {
 
   @Override
   public CommandMeta getMeta() {
-    return SimpleCommandMeta.onLabel("saveall");
+    return SimpleCommandMeta.onLabel("saveall").description("Сохранить мету");
   }
 }

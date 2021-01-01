@@ -23,6 +23,6 @@ public class MetaDelBotCommand implements DevPermissibleBotCommand {
 
   @Override
   public CommandMeta getMeta() {
-    return SimpleCommandMeta.onLabel("metadel");
+    return SimpleCommandMeta.onLabel("metadel").description("Удалить мету для чата по ключу");
   }
 }

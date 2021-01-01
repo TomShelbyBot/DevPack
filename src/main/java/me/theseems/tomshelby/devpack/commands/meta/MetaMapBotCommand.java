@@ -53,6 +53,6 @@ public class MetaMapBotCommand implements DevPermissibleBotCommand {
 
   @Override
   public CommandMeta getMeta() {
-    return SimpleCommandMeta.onLabel("metamap");
+    return SimpleCommandMeta.onLabel("metamap").description("Показать карту меты для чата");
   }
 }

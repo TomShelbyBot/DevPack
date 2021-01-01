@@ -13,7 +13,7 @@ import java.util.Optional;
 
 public class EnablePackBotCommand extends SimpleBotCommand implements DevPermissibleBotCommand {
   public EnablePackBotCommand() {
-    super(SimpleCommandMeta.onLabel("enablepack").description("Включить пакет"));
+    super(SimpleCommandMeta.onLabel("enablepack").description("Включить пак"));
   }
 
   @Override

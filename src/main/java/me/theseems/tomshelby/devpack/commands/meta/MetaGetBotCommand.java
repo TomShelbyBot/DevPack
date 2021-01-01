@@ -26,6 +26,6 @@ public class MetaGetBotCommand implements DevPermissibleBotCommand {
 
   @Override
   public CommandMeta getMeta() {
-    return SimpleCommandMeta.onLabel("metaget");
+    return SimpleCommandMeta.onLabel("metaget").description("Получить из меты значение для чата по ключу");
   }
 }

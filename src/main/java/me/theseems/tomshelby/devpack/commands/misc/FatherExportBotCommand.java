@@ -15,7 +15,10 @@ import java.util.stream.Collectors;
 public class FatherExportBotCommand extends SimpleBotCommand implements DevPermissibleBotCommand {
   /** A command for exporting all current commands to format that BotFather accepts */
   public FatherExportBotCommand() {
-    super(new SimpleCommandMeta().label("fatherexport"));
+    super(
+        new SimpleCommandMeta()
+            .label("fatherexport")
+            .description("Вывести информацию о всех командах в боте для экспорта в BotFather"));
   }
 
   @Override

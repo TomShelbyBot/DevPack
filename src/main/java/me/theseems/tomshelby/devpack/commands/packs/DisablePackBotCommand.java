@@ -12,7 +12,7 @@ import java.util.Optional;
 
 public class DisablePackBotCommand extends SimpleBotCommand implements DevPermissibleBotCommand {
   public DisablePackBotCommand() {
-    super(SimpleCommandMeta.onLabel("disablepack").description("Выключить пакет"));
+    super(SimpleCommandMeta.onLabel("disablepack").description("Выключить пак"));
   }
 
   @Override

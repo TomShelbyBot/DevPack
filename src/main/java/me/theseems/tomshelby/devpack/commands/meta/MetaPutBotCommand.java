@@ -32,6 +32,6 @@ public class MetaPutBotCommand implements DevPermissibleBotCommand {
 
   @Override
   public CommandMeta getMeta() {
-    return SimpleCommandMeta.onLabel("metaput");
+    return SimpleCommandMeta.onLabel("metaput").description("Установить мету: <ключ> - <значение>");
   }
 }
