@@ -14,7 +14,10 @@ public class MetaMapBotCommand implements DevPermissibleBotCommand {
 
   @Override
   public void handle(ThomasBot bot, String[] args, Update update) {
-    if (args.length < 1) bot.sendBack(update, new SendMessage().setText("Укажите чат."));
+    if (args.length < 1){
+      bot.sendBack(update, new SendMessage().setText("Укажите чат."));
+      return;
+    }
 
     try {
       Long chatId = Long.parseLong(args[0]);

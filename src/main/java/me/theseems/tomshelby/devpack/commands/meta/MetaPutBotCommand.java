@@ -16,7 +16,10 @@ public class MetaPutBotCommand implements DevPermissibleBotCommand {
 
   @Override
   public void handle(ThomasBot bot, String[] args, Update update) {
-    if (args.length < 2) bot.sendBack(update, new SendMessage().setText("Укажите ключ и значение"));
+    if (args.length < 2){
+      bot.sendBack(update, new SendMessage().setText("Укажите ключ и значение"));
+      return;
+    }
 
     String key = args[0];
     String value = Joiner.on(' ').join(Arrays.stream(args).skip(1).collect(Collectors.toList()));
