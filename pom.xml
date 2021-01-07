@@ -6,7 +6,7 @@
 
     <groupId>me.theseems.tomshelby</groupId>
     <artifactId>devpack</artifactId>
-    <version>0.1D</version>
+    <version>0.2D</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -17,9 +17,7 @@
         <dependency>
             <groupId>me.theseems</groupId>
             <artifactId>tomshelby</artifactId>
-            <scope>system</scope>
-            <version>0.5D</version>
-            <systemPath>C:\Users\me\IdeaProjects\tomshel\target\TomShelbyBot-0.5D.jar</systemPath>
+            <version>0.6D</version>
         </dependency>
     </dependencies>
 

@@ -1,7 +1,7 @@
 {
   "name": "dev",
   "author": "@theseems",
-  "version": "0.1D",
+  "version": "0.2D",
   "description": "A dev package including some advanced, specific to inners commands",
   "main": "me.theseems.tomshelby.devpack.Main"
 }
