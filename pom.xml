@@ -6,7 +6,7 @@
 
     <groupId>me.theseems.tomshelby</groupId>
     <artifactId>devpack</artifactId>
-    <version>0.2D</version>
+    <version>0.3D</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

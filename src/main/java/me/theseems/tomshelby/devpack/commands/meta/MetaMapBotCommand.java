@@ -1,9 +1,11 @@
 package me.theseems.tomshelby.devpack.commands.meta;
 
+import com.google.common.base.Joiner;
 import me.theseems.tomshelby.ThomasBot;
 import me.theseems.tomshelby.command.CommandMeta;
 import me.theseems.tomshelby.command.SimpleCommandMeta;
 import me.theseems.tomshelby.devpack.commands.DevPermissibleBotCommand;
+import me.theseems.tomshelby.storage.SimpleTomMeta;
 import me.theseems.tomshelby.storage.TomMeta;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -12,42 +14,77 @@ import java.util.Optional;
 
 public class MetaMapBotCommand implements DevPermissibleBotCommand {
 
-  @Override
-  public void handle(ThomasBot bot, String[] args, Update update) {
-    if (args.length < 1){
-      bot.sendBack(update, new SendMessage().setText("Укажите чат."));
-      return;
+  private String traverseContainer(TomMeta meta, int level) {
+    StringBuilder spacesBuilder = new StringBuilder();
+    for (int i = 0; i < level; i++) {
+      spacesBuilder.append(" ");
     }
 
+    StringBuilder builder = new StringBuilder();
+
+    for (String key : meta.getKeys()) {
+      builder
+          .append('\n')
+          .append(spacesBuilder.toString())
+          .append("'")
+          .append(key)
+          .append("'")
+          .append(" ⟾ ");
+
+      if (meta.getContainer(key).isPresent()) {
+        TomMeta tomMeta = meta.getContainer(key).get();
+        builder.append("Контейнер (").append(tomMeta.getKeys().size()).append("): ");
+        builder.append(traverseContainer(tomMeta, level + 1));
+      } else {
+        builder.append(
+            meta.get(key).flatMap(value -> Optional.of("'" + value + "'")).orElse("__null__"));
+      }
+    }
+
+    return builder.toString();
+  }
+
+  @Override
+  public void handle(ThomasBot bot, String[] args, Update update) {
     try {
-      Long chatId = Long.parseLong(args[0]);
+      Long chatId;
+      if (args.length == 0 || args[0].equals("this")) {
+        chatId = update.getMessage().getChatId();
+      } else {
+        chatId = Long.parseLong(args[0]);
+      }
+
       if (!bot.getChatStorage().getChatIds().contains(chatId)) {
-        bot.sendBack(update, new SendMessage().setText("Для чата нет сохраненной меты"));
+        bot.replyBackText(update, "Для чата нет сохраненной меты");
         return;
       }
 
       TomMeta meta = bot.getChatStorage().getChatMeta(chatId);
-      StringBuilder builder = new StringBuilder();
-
-      builder.append("Чат: _").append(chatId).append("_\n");
-      builder.append("Количество записей: _").append(meta.getKeys().size()).append("_\n");
-      builder.append("```").append('\n');
-      for (String key : meta.getKeys()) {
-        builder.append('\n');
-        builder
-            .append("'")
-            .append(key)
-            .append("'")
-            .append(" ⟾ ")
-            .append(
-                meta.get(key).flatMap(value -> Optional.of("'" + value + "'")).orElse("__null__"));
+      if (Joiner.on(' ').join(args).contains("-json")) {
+        // Output in json
+        bot.replyBack(
+            update,
+            new SendMessage()
+                .setText("```\n" + SimpleTomMeta.jsonify(meta, true) + "\n```")
+                .enableMarkdown(true));
+        return;
       }
-      builder.append('\n');
-      builder.append("```");
 
-      bot.sendBack(update, new SendMessage().setText(builder.toString()).enableMarkdown(true));
+      String builder =
+          "Чат: _"
+              + chatId
+              + "_\n"
+              + "Количество записей: _"
+              + meta.getKeys().size()
+              + "_\n"
+              + "```"
+              + '\n'
+              + traverseContainer(meta, 0)
+              + "```";
+
+      bot.replyBack(update, new SendMessage().setText(builder).enableMarkdown(true));
     } catch (NumberFormatException e) {
-      bot.sendBack(update, new SendMessage().setText("Укажите валидный айди чата."));
+      bot.replyBackText(update, "Укажите валидный айди чата.");
     }
   }
 
