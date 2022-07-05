@@ -47,6 +47,10 @@ public class FatherExportBotCommand extends SimpleBotCommand implements DevPermi
     }
     builder.append("```");
 
-    bot.replyBack(update, new SendMessage().setText(builder.toString()).enableMarkdown(true));
+    SendMessage sendMessage = new SendMessage();
+    sendMessage.setText(builder.toString());
+    sendMessage.enableMarkdown(true);
+
+    bot.replyBack(update, sendMessage);
   }
 }

@@ -12,16 +12,24 @@ public class MetaGetBotCommand implements DevPermissibleBotCommand {
   @Override
   public void handle(ThomasBot bot, String[] args, Update update) {
     if (args.length < 1){
-      bot.sendBack(update, new SendMessage().setText("Укажите ключ"));
+      SendMessage sendMessage = new SendMessage();
+      sendMessage.setText("Укажите ключ");
+
+      bot.sendBack(update, sendMessage);
       return;
     }
 
     Object value =
         bot.getChatStorage()
-            .getChatMeta(update.getMessage().getChatId())
+            .getChatMeta(String.valueOf(update.getMessage().getChatId()))
             .get(args[0])
             .orElse("_<отсутствует>_");
-    bot.sendBack(update, new SendMessage().setText(value.toString()).enableMarkdown(true));
+
+    SendMessage sendMessage = new SendMessage();
+    sendMessage.setText(value.toString());
+    sendMessage.enableMarkdown(true);
+
+    bot.sendBack(update, sendMessage);
   }
 
   @Override

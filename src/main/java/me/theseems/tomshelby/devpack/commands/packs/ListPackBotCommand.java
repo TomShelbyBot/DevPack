@@ -44,6 +44,10 @@ public class ListPackBotCommand extends SimpleBotCommand implements DevPermissib
       builder.append(getPackageEntry(bot.getPackageManager(), pack));
     }
 
-    bot.replyBack(update, new SendMessage().setText(builder.toString()).enableMarkdown(true));
+    SendMessage sendMessage = new SendMessage();
+    sendMessage.setText(builder.toString());
+    sendMessage.enableMarkdown(true);
+
+    bot.replyBack(update, sendMessage);
   }
 }

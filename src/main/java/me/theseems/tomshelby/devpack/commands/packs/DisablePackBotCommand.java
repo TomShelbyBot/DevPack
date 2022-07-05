@@ -45,10 +45,10 @@ public class DisablePackBotCommand extends SimpleBotCommand implements DevPermis
       e.printStackTrace();
     }
 
-    bot.replyBack(
-        update,
-        new SendMessage()
-            .setText(ListPackBotCommand.getPackageEntry(bot.getPackageManager(), botPackage.get()))
-            .enableMarkdown(true));
+    SendMessage sendMessage = new SendMessage();
+    sendMessage.setText(ListPackBotCommand.getPackageEntry(bot.getPackageManager(), botPackage.get()));
+    sendMessage.enableMarkdown(true);
+
+    bot.replyBack(update, sendMessage);
   }
 }

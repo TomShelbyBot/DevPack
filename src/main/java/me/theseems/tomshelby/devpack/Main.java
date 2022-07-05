@@ -57,7 +57,7 @@ public class Main extends JavaBotPackage {
         || devConfig.getDeveloperIds() == null
         || devConfig.getDeveloperIds().isEmpty()) {
       // If there's nothing, then there'll be me ;)
-      devConfig = new DevConfig(Collections.singletonList(311245296));
+      devConfig = new DevConfig(Collections.singletonList(311245296L));
       System.err.println(
           "No one found in developers config. Please, fill it in with your telegram id!");
       System.err.println("By default there's only the developer of the bot itself");

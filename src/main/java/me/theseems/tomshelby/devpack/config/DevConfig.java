@@ -4,17 +4,17 @@ import java.util.List;
 import java.util.Objects;
 
 public class DevConfig {
-  private List<Integer> developerIds;
+  private List<Long> developerIds;
 
-  public DevConfig(List<Integer> developerIds) {
+  public DevConfig(List<Long> developerIds) {
     this.developerIds = developerIds;
   }
 
-  public List<Integer> getDeveloperIds() {
+  public List<Long> getDeveloperIds() {
     return developerIds;
   }
 
-  public void setDeveloperIds(List<Integer> developerIds) {
+  public void setDeveloperIds(List<Long> developerIds) {
     this.developerIds = developerIds;
   }
 

@@ -17,17 +17,23 @@ public class MetaPutBotCommand implements DevPermissibleBotCommand {
   @Override
   public void handle(ThomasBot bot, String[] args, Update update) {
     if (args.length < 2){
-      bot.sendBack(update, new SendMessage().setText("Укажите ключ и значение"));
+      SendMessage sendMessage = new SendMessage();
+      sendMessage.setText("Укажите ключ и значение");
+
+      bot.sendBack(update, sendMessage);
       return;
     }
 
     String key = args[0];
     String value = Joiner.on(' ').join(Arrays.stream(args).skip(1).collect(Collectors.toList()));
 
-    TomMeta meta = bot.getChatStorage().getChatMeta(update.getMessage().getChatId());
+    TomMeta meta = bot.getChatStorage().getChatMeta(String.valueOf(update.getMessage().getChatId()));
     meta.set(key, value);
 
-    bot.sendBack(update, new SendMessage().setText("OK"));
+    SendMessage sendMessage = new SendMessage();
+    sendMessage.setText("ОК");
+
+    bot.sendBack(update, sendMessage);
   }
 
   @Override
