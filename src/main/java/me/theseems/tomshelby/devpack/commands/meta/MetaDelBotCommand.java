@@ -12,13 +12,19 @@ public class MetaDelBotCommand implements DevPermissibleBotCommand {
   @Override
   public void handle(ThomasBot bot, String[] args, Update update) {
     if (args.length < 1){
-      bot.sendBack(update, new SendMessage().setText("Укажите ключ"));
+      SendMessage sendMessage = new SendMessage();
+      sendMessage.setText("Укажите ключ");
+
+      bot.sendBack(update, sendMessage);
       return;
     }
 
     bot.getChatStorage()
-        .getChatMeta(update.getMessage().getChatId()).remove(args[0]);
-    bot.sendBack(update, new SendMessage().setText("OK"));
+        .getChatMeta(String.valueOf(update.getMessage().getChatId())).remove(args[0]);
+
+    SendMessage sendMessage = new SendMessage();
+    sendMessage.setText("ОК");
+    bot.sendBack(update, sendMessage);
   }
 
   @Override

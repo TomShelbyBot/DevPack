@@ -5,7 +5,7 @@ import me.theseems.tomshelby.devpack.Main;
 
 public interface DevPermissibleBotCommand extends PermissibleBotCommand {
   @Override
-  default boolean canUse(Long chatId, Integer userId) {
+  default boolean canUse(String chatId, Long userId) {
     // Just check if we can consider the user as a developer
     return Main.getDevConfig().getDeveloperIds().contains(userId);
   }

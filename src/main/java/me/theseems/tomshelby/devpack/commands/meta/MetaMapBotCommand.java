@@ -54,19 +54,20 @@ public class MetaMapBotCommand implements DevPermissibleBotCommand {
         chatId = Long.parseLong(args[0]);
       }
 
-      if (!bot.getChatStorage().getChatIds().contains(chatId)) {
+      if (!bot.getChatStorage().getChatIds().contains(chatId.toString())) {
         bot.replyBackText(update, "Для чата нет сохраненной меты");
         return;
       }
 
-      TomMeta meta = bot.getChatStorage().getChatMeta(chatId);
+      TomMeta meta = bot.getChatStorage().getChatMeta(chatId.toString());
       if (Joiner.on(' ').join(args).contains("-json")) {
+        String infoString = "```\n" + SimpleTomMeta.jsonify(meta) + "\n```";
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.setText(infoString);
+        sendMessage.enableMarkdown(true);
+
         // Output in json
-        bot.replyBack(
-            update,
-            new SendMessage()
-                .setText("```\n" + SimpleTomMeta.jsonify(meta, true) + "\n```")
-                .enableMarkdown(true));
+        bot.replyBack(update, sendMessage);
         return;
       }
 
@@ -82,7 +83,11 @@ public class MetaMapBotCommand implements DevPermissibleBotCommand {
               + traverseContainer(meta, 0)
               + "```";
 
-      bot.replyBack(update, new SendMessage().setText(builder).enableMarkdown(true));
+      SendMessage sendMessage = new SendMessage();
+      sendMessage.setText(builder);
+      sendMessage.enableMarkdown(true);
+
+      bot.replyBack(update, sendMessage);
     } catch (NumberFormatException e) {
       bot.replyBackText(update, "Укажите валидный айди чата.");
     }

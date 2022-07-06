@@ -6,6 +6,7 @@ import me.theseems.tomshelby.command.SimpleBotCommand;
 import me.theseems.tomshelby.command.SimpleCommandMeta;
 import me.theseems.tomshelby.devpack.commands.DevPermissibleBotCommand;
 import me.theseems.tomshelby.pack.BotPackage;
+import me.theseems.tomshelby.pack.JarBotPackageManager;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
@@ -37,12 +38,12 @@ public class EnablePackBotCommand extends SimpleBotCommand implements DevPermiss
       return;
     }
 
-    Main.getPackageManager().enablePackage(Main.getBot(), packageName);
-    bot.replyBack(
-        update,
-        new SendMessage()
-            .setText(
-                ListPackBotCommand.getPackageEntry(bot.getPackageManager(), botPackage.get()))
-                    .enableMarkdown(true));
+
+    ((JarBotPackageManager) Main.getBotPackageManager()).enablePackage(Main.getBot(), packageName);
+    SendMessage sendMessage = new SendMessage();
+    sendMessage.setText(ListPackBotCommand.getPackageEntry(bot.getPackageManager(), botPackage.get()));
+    sendMessage.enableMarkdown(true);
+
+    bot.replyBack(update, sendMessage);
   }
 }
